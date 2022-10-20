@@ -24,7 +24,9 @@ RUN microdnf -y install --nodocs --noplugins --best yum && \
 
 RUN cp /usr/share/ssm-server/entrypoint.sh /opt/entrypoint.sh
 
-RUN yum -y install clamav clamav-update clamav-data && freshclam && clamscan -i -r --exclude-dir="^/sys/" / && yum -y remove --allowerasing clamav clamav-update clamav-data && yum -y clean all
+RUN yum -y install clamav clamav-update clamav-data && \
+    freshclam && find / -xdev -type f -print0 | nice -n19 xargs -0 -n1 -P$(nproc) clamscan -i --quiet && \
+    yum -y remove --allowerasing clamav clamav-update clamav-data && yum -y clean all
 RUN rkhunter --propupd uname && rkhunter --check --disable system_configs_syslog --disable avail_modules --disable passwd_changes --disable group_changes
 
 CMD ["/opt/entrypoint.sh"]

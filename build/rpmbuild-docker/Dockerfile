@@ -41,7 +41,7 @@ RUN GO111MODULE=off go install -ldflags="-X main.version=v0.5.4" ${GOPATH}/src/g
 RUN go install github.com/sonatype-nexus-community/nancy@latest
 RUN chown -R builder:builder /home/builder
 
-RUN freshclam && clamscan -i -r --exclude-dir="^/sys/" /
+RUN freshclam && find / -xdev -type f -print0 | nice -n19 xargs -0 -n1 -P$(nproc) clamscan -i --quiet
 RUN rkhunter --propupd uname && rkhunter --check --disable system_configs_syslog --disable avail_modules --disable passwd_changes --disable group_changes
 
 USER builder
