@@ -1,0 +1,22 @@
+#!/bin/sh
+SOURCE_DIR=$1
+DEB_BUILD_ROOT=$2
+cd $SOURCE_DIR
+
+install -m 0755 -d $DEB_BUILD_ROOT/usr/sbin
+install -m 0755 -d $DEB_BUILD_ROOT/usr/local/percona/pmm-client
+install -m 0755 -d $DEB_BUILD_ROOT/usr/local/percona/pmm-client
+install -m 0755 -d $DEB_BUILD_ROOT/usr/local/percona/pmm-client/textfile-collector
+install -m 0755 -d $DEB_BUILD_ROOT/usr/local/percona/qan-agent/bin
+install -m 0755 bin/pmm-admin $DEB_BUILD_ROOT/usr/sbin/
+install -m 0755 bin/node_exporter $DEB_BUILD_ROOT/usr/local/percona/pmm-client/
+install -m 0755 bin/mysqld_exporter $DEB_BUILD_ROOT/usr/local/percona/pmm-client/
+install -m 0755 bin/postgres_exporter $DEB_BUILD_ROOT/usr/local/percona/pmm-client/
+install -m 0755 bin/mongodb_exporter $DEB_BUILD_ROOT/usr/local/percona/pmm-client/
+install -m 0755 bin/proxysql_exporter $DEB_BUILD_ROOT/usr/local/percona/pmm-client/
+install -m 0755 bin/pt-summary $DEB_BUILD_ROOT/usr/local/percona/qan-agent/bin/
+install -m 0755 bin/pt-mysql-summary $DEB_BUILD_ROOT/usr/local/percona/qan-agent/bin/
+install -m 0755 bin/pt-mongodb-summary $DEB_BUILD_ROOT/usr/local/percona/qan-agent/bin/
+install -m 0755 bin/percona-qan-agent $DEB_BUILD_ROOT/usr/local/percona/qan-agent/bin/
+install -m 0755 bin/percona-qan-agent-installer $DEB_BUILD_ROOT/usr/local/percona/qan-agent/bin/
+install -m 0755 example.prom $DEB_BUILD_ROOT/usr/local/percona/pmm-client/textfile-collector/

@@ -1,0 +1,14 @@
+/var/log/pmm-linux-metrics-42000.log /var/log/pmm-mysql-metrics-42002.log /var/log/pmm-postgresql-metrics-42005.log {
+	missingok
+	notifempty
+	compress
+	daily
+	rotate 7
+	create 0644 root root
+	postrotate
+		systemctl restart pmm-linux-metrics-42000
+		systemctl restart pmm-mysql-metrics-42002
+		systemctl restart pmm-postgresql-metrics-42005
+	endscript
+
+}
