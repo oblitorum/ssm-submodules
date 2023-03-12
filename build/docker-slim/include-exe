@@ -1,0 +1,10 @@
+ssm-managed
+ssm-qan-api
+ssm-configure
+ssm-configurator
+prometheus
+grafana-server
+consul
+crond
+mysql
+rds_exporter
