@@ -29,6 +29,10 @@ shell_quote_string() {
 
 build_srpms() {
     docker run --rm -v ${root_dir}:/home/builder/ssm-submodules --mount 'type=volume,src=ssm-build-cache,dst=/mnt/cache' --tmpfs '/tmp' ${rpmbuild_docker_image} sh -c "
+        # avoid 'dubious ownership in repository' git error
+        git config --global --add safe.directory /home/builder/ssm-submodules
+        find /home/builder/ssm-submodules/sources -maxdepth 2 -name '.git' -exec bash -c 'git config --global --add safe.directory \${0%/.git}' {} \;
+
     	/home/builder/ssm-submodules/build/bin/build-srpm ${1}
     "
 }
