@@ -16,6 +16,7 @@ License:        GPL-2.0
 Vendor:         Percona LLC
 URL:            https://percona.com
 Source0:        https://%{import_path}/archive/%{percona_toolkit_version}/%{repo}-%{percona_toolkit_version}.tar.gz
+Patch0:         0001-fix-impossible-on-condition.patch
 BuildRequires:  golang
 
 Requires: perl-DBI, perl-DBD-MySQL, MariaDB-shared
@@ -25,6 +26,7 @@ Percona Toolkit (SSM Minimal)
 
 %prep
 %setup -q -n %{repo}-%{percona_toolkit_version}
+%patch0 -p1
 
 %build
 mkdir -p %{_GOPATH}/bin
